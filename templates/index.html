@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<div class="button-group">
+	<a href="{% url 'Laptop' %}" class="btn btn-primary btn-md" role="button">Laptop</a>
+	<a href="{% url 'Insert_laptop' %}" class="btn btn-warning btn-sm" role="button">+</a>
+
+	<a href="{% url 'Phone' %}" class="btn btn-primary btn-md" role="button">Phone</a>
+	<a href="{% url 'Insert_phone' %}" class="btn btn-warning btn-sm" role="button">+</a>
+</div>
+<h4>Current View {{ title }}</h4>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th>Update/Delete</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<th>{{ item.pk }}</th>
+			<th>{{ item.name }}</th>
+			<th>{{ item.price }}</th>
+			<th>{{ item.status }}</th>
+			<th>
+				{% if title == "Laptop" %}
+				<a href="{% url 'update_laptop' item.pk %}"><span class="btn btn-warning btn-sm" role="button">Edit</span></a> 
+				<a href="{% url 'laptop_delete' item.pk %}"><span class="btn btn-danger btn-sm">Delete</span></a>
+			{% else %}
+				<a href="{% url 'update_phone' item.pk %}"><span class="btn btn-warning btn-sm" role="button">Edit</span></a> 
+				<a href="{% url 'phone_delete' item.pk %}"><span class="btn btn-danger btn-sm">Delete</span></a>
+			{% endif %}
+			</th>
+
+		</tr>
+		{% endfor %}
+	</tbody>
+	
+</table>
+{% endblock %}
